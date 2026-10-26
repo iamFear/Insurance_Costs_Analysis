@@ -45,5 +45,4 @@ Duplicate records are preserved. Missing headers, empty or duplicate column
 names, and records with too few or too many fields raise a `ValueError`.
 
 For analysis, only complete records will be loaded: every column must contain
-a non-empty value. Enforcing this requirement for empty or whitespace-only cells
-is still pending; the current loader rejects missing fields but accepts empty cells.
+a non-empty value.
