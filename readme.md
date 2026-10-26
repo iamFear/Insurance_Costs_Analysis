@@ -30,7 +30,20 @@ The CSV contains 1,338 records, no missing values, and one exact duplicate row i
 - `insurance_analysis.py`: source code that takes care of the analysis.
 - `readme.md`: project description.
 
-## Output
+## Usage and current capabilities
 
-After executing `insurance.csv`, it'll generate a file in the same folder called `results.txt` that'll contain
-the results of our analysis.
+Requires Python 3 and uses only the standard-library `csv` module. Run from the
+project directory using your terminal, so the relative path to `insurance.csv` resolves correctly:
+
+```sh
+python3 insurance_analysis.py
+```
+
+The script loads the CSV into `file_rows`, a dictionary whose zero-based keys
+identify records. Each record is a dictionary mapping header names to values.
+Duplicate records are preserved. Missing headers, empty or duplicate column
+names, and records with too few or too many fields raise a `ValueError`.
+
+For analysis, only complete records will be loaded: every column must contain
+a non-empty value. Enforcing this requirement for empty or whitespace-only cells
+is still pending; the current loader rejects missing fields but accepts empty cells.
