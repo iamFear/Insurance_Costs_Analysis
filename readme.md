@@ -39,10 +39,23 @@ project directory using your terminal, so the relative path to `insurance.csv` r
 python3 insurance_analysis.py
 ```
 
-The script loads the CSV into `file_rows`, a dictionary whose zero-based keys
-identify records. Each record is a dictionary mapping header names to values.
-Duplicate records are preserved. Missing headers, empty or duplicate column
-names, and records with too few or too many fields raise a `ValueError`.
+The script loads the CSV into `file_rows`, a list of dictionaries mapping header
+names to values. `age` and `children` are converted to integers; `bmi` and
+`charges` are converted to floats. Other values remain strings, and duplicate
+records are preserved.
+
+Running the script prints the average BMI for smokers and non-smokers and the
+percentage difference relative to non-smokers. This is a descriptive comparison,
+not evidence that smoking causes a BMI difference.
+
+`count_key_values(key, checker)` counts exact matches in the loaded records and
+returns an error message for an unknown column. Match numeric columns using
+numbers rather than strings, for example `count_key_values("age", 19)`.
+
+No prediction model or results-file output is implemented yet. The BMI comparison
+requires at least one smoker and one non-smoker; otherwise it raises a
+`ZeroDivisionError`. Header and row-shape validation are not currently implemented.
 
 For analysis, only complete records will be loaded: every column must contain
-a non-empty value.
+a non-empty value. This is a requirement, not yet fully enforced: invalid or empty
+numeric values fail conversion, but empty text values are still accepted.
